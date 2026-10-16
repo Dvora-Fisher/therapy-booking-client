@@ -1,0 +1,20 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.subtitle {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  max-width: 60ch;
+}
+
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: var(--text-xl);
+  }
+}

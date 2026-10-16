@@ -1,0 +1,29 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.neutral {
+  background: var(--color-surface-sunken);
+  color: var(--color-text-muted);
+}
+
+.green {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-ink);
+}
+
+.warm {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-ink);
+}
+
+.danger {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}

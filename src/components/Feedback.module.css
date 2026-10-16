@@ -1,0 +1,64 @@
+.skeletonList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.skeleton {
+  border-radius: var(--radius-md);
+  background: linear-gradient(90deg, var(--color-surface-sunken) 0%, #fbf8f3 50%, var(--color-surface-sunken) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-7) var(--space-4);
+  text-align: center;
+}
+
+.emptyArt {
+  width: 96px;
+  height: 96px;
+  margin-bottom: var(--space-2);
+}
+
+.emptyText {
+  max-width: 36ch;
+  color: var(--color-text-muted);
+}
+
+.error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.retry {
+  border: 1px solid currentColor;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  padding: var(--space-1) var(--space-3);
+  cursor: pointer;
+  color: inherit;
+  font-weight: 600;
+}

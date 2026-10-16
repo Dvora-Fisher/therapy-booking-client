@@ -1,0 +1,66 @@
+/*
+ * Design tokens - "quiet and safe". Every color, radius, shadow and spacing value lives here only.
+ * Contrast (WCAG AA): text on background >= 4.5:1; white text on --color-primary-strong = 4.9:1.
+ */
+:root {
+  /* Brand: muted sage green */
+  --color-primary: #6b8f71;
+  --color-primary-strong: #557a5c; /* buttons - white text passes AA */
+  --color-primary-ink: #3f5f45; /* links and small green text */
+  --color-primary-soft: #e8efe6;
+  --color-primary-softer: #f2f6f0;
+
+  /* Surfaces: light sand */
+  --color-bg: #faf7f2;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #f4efe7;
+  --color-border: #e6dfd3;
+  --color-border-strong: #d4cabb;
+
+  /* Text: soft charcoal */
+  --color-text: #2f3437;
+  --color-text-muted: #5d6468;
+  --color-text-on-primary: #ffffff;
+
+  /* Accent: gentle terracotta (notices, the "just taken" moment) */
+  --color-accent: #b86a4b;
+  --color-accent-soft: #f7e9e1;
+  --color-accent-ink: #8a4a31; /* terracotta text on the soft background */
+
+  /* Error: soft red, not alarming */
+  --color-danger: #a94f4a;
+  --color-danger-soft: #f8e7e5;
+
+  /* Typography */
+  --font-body: 'Assistant', 'Segoe UI', system-ui, sans-serif;
+  --font-heading: 'Rubik', 'Assistant', system-ui, sans-serif;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.625rem;
+  --text-2xl: 2.125rem;
+  --line-height: 1.65;
+
+  /* Shape and depth */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgb(47 52 55 / 0.06);
+  --shadow-md: 0 4px 18px rgb(47 52 55 / 0.07), 0 1px 3px rgb(47 52 55 / 0.05);
+  --shadow-lg: 0 18px 48px rgb(47 52 55 / 0.16);
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --focus-ring: 0 0 0 3px rgb(85 122 92 / 0.35);
+  --transition: 160ms ease;
+  --content-width: 1040px;
+}

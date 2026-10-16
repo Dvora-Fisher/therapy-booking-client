@@ -1,0 +1,77 @@
+.dialog {
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100dvh - 48px);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-lg);
+}
+
+.dialog::backdrop {
+  background: rgb(47 52 55 / 0.35);
+  backdrop-filter: blur(3px);
+}
+
+.dialog[open] {
+  animation: rise 220ms ease-out;
+}
+
+.content {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.title {
+  font-size: var(--text-lg);
+  flex: 1;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-strong);
+}
+
+/* The "just taken" moment: warm terracotta instead of an alarming red */
+.warm .icon {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.close:hover {
+  background: var(--color-surface-sunken);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}

@@ -1,0 +1,79 @@
+.formCard {
+  margin-bottom: var(--space-6);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.formTitle {
+  font-size: var(--text-lg);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-3);
+}
+
+.types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.types legend {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.type {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.type input {
+  accent-color: var(--color-primary-strong);
+}
+
+.typeOn {
+  border-color: var(--color-primary-strong);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-ink);
+}
+
+.error {
+  flex-basis: 100%;
+  color: var(--color-danger);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.submit {
+  align-self: flex-start;
+}
+
+.sectionTitle {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-3);
+}
+
+@media (max-width: 600px) {
+  .submit {
+    align-self: stretch;
+  }
+}

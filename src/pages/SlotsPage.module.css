@@ -1,0 +1,23 @@
+.next {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-primary-soft);
+}
+
+.next p {
+  flex: 1;
+  min-width: 200px;
+}
+
+.nextIcon {
+  color: var(--color-primary-strong);
+}
+
+.nextLabel {
+  color: var(--color-text-muted);
+}
