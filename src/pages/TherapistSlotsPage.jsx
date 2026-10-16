@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { Ban, CalendarPlus, LockOpen, Trash2 } from 'lucide-react';
+import { Ban, CalendarPlus, LockOpen, Trash2, UserRound } from 'lucide-react';
 import Badge from '../components/Badge';
 import Button from '../components/Button';
 import Card from '../components/Card';
@@ -92,6 +92,11 @@ export default function TherapistSlotsPage() {
               return (
                 <SlotChip slot={slot}>
                   <Badge tone={status.tone}>{status.label}</Badge>
+                  {slot.bookedByClientName && (
+                    <span className={styles.bookedBy}>
+                      <UserRound size={14} aria-hidden /> {slot.bookedByClientName}
+                    </span>
+                  )}
                   {slot.status === 'Open' && (
                     <Button size="sm" variant="ghost" icon={Ban} loading={busy} onClick={() => setStatus(slot, 'Blocked')}>
                       חסימה

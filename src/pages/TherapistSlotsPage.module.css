@@ -67,6 +67,14 @@
   align-self: flex-start;
 }
 
+.bookedBy {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
 .sectionTitle {
   font-size: var(--text-lg);
   margin-bottom: var(--space-3);
