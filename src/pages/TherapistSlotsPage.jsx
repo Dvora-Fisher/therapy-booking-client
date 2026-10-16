@@ -5,6 +5,7 @@ import Badge from '../components/Badge';
 import Button from '../components/Button';
 import Card from '../components/Card';
 import ConfirmModal from '../components/ConfirmModal';
+import DateField from '../components/DateField';
 import { EmptyState, ErrorNotice, Skeleton } from '../components/Feedback';
 import FormField from '../components/FormField';
 import PageHeader from '../components/PageHeader';
@@ -15,7 +16,9 @@ import SlotsByDay from '../components/slots/SlotsByDay';
 import { createSlot, deleteSlot, getSlots, updateSlot } from '../api/slots';
 import { useAsync } from '../hooks/useAsync';
 import { useTreatmentTypes } from '../hooks/useTreatmentTypes';
-import { addDays, formatDayAndTime, israelTimeToUtcIso, todayInIsrael } from '../utils/dates';
+import {
+  formatDayAndTime, israelTimeToUtcIso, nextWeekdayAfter, overlapsShabbat, SHABBAT, todayInIsrael,
+} from '../utils/dates';
 import { getErrorMessage, getFieldErrors } from '../utils/errors';
 import { SLOT_STATUS } from '../utils/labels';
 import { buildSlotQuery } from '../utils/slotQuery';
@@ -136,11 +139,12 @@ export default function TherapistSlotsPage() {
 }
 
 function NewSlotForm({ treatmentTypes, onCreated }) {
-  const [form, setForm] = useState({ date: addDays(todayInIsrael(), 1), start: '09:00', end: '10:00', typeIds: [] });
+  const [form, setForm] = useState({ date: nextWeekdayAfter(todayInIsrael()), start: '09:00', end: '10:00', typeIds: [] });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
   const set = (field) => (event) => setForm((f) => ({ ...f, [field]: event.target.value }));
+  const onShabbat = overlapsShabbat(form.date, form.start, form.end);
   const toggleType = (id) =>
     setForm((f) => ({ ...f, typeIds: f.typeIds.includes(id) ? f.typeIds.filter((x) => x !== id) : [...f.typeIds, id] }));
 
@@ -171,7 +175,10 @@ function NewSlotForm({ treatmentTypes, onCreated }) {
       <form onSubmit={handleSubmit} className={styles.form}>
         <h2 className={styles.formTitle}>חלון חדש</h2>
         <div className={styles.row}>
-          <FormField label="תאריך" type="date" value={form.date} min={todayInIsrael()} onChange={set('date')} required />
+          <DateField label="תאריך" value={form.date} min={todayInIsrael()} onChange={set('date')} required
+            error={onShabbat
+              ? `שבת: לא מפרסמים חלונות מיום שישי ${SHABBAT.startsOnFridayAt} עד מוצאי שבת ${SHABBAT.endsOnSaturdayAt}.`
+              : undefined} />
           <FormField label="משעה" type="time" value={form.start} onChange={set('start')} required />
           <FormField label="עד שעה" type="time" value={form.end} onChange={set('end')} error={errors.endUtc} required />
         </div>
@@ -187,7 +194,9 @@ function NewSlotForm({ treatmentTypes, onCreated }) {
           {errors.treatmentTypeIds && <p className={styles.error} role="alert">יש לבחור לפחות סוג טיפול אחד.</p>}
         </fieldset>
 
-        <Button type="submit" icon={CalendarPlus} loading={saving} className={styles.submit}>פרסום החלון</Button>
+        <Button type="submit" icon={CalendarPlus} loading={saving} disabled={onShabbat} className={styles.submit}>
+          פרסום החלון
+        </Button>
       </form>
     </Card>
   );

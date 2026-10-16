@@ -1,3 +1,4 @@
+import DateField from '../DateField';
 import FormField from '../FormField';
 import styles from './SlotFilters.module.css';
 
@@ -7,8 +8,8 @@ export default function SlotFilters({ filters, onChange, treatmentTypes, childre
 
   return (
     <div className={styles.filters} role="search">
-      <FormField label="מתאריך" type="date" value={filters.from} onChange={set('from')} />
-      <FormField label="עד תאריך" type="date" value={filters.to} min={filters.from} onChange={set('to')} />
+      <DateField label="מתאריך" value={filters.from} onChange={set('from')} />
+      <DateField label="עד תאריך" value={filters.to} min={filters.from} onChange={set('to')} />
       <FormField label="סוג טיפול" as="select" value={filters.treatmentTypeId} onChange={set('treatmentTypeId')}>
         <option value="">כל סוגי הטיפול</option>
         {treatmentTypes.map((t) => (

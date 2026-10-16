@@ -1,3 +1,5 @@
+import { formatHebrewDate } from './hebrewDate';
+
 /**
  * The server works in UTC only. Conversion to Israel time happens here, in the client, and nowhere else.
  */
@@ -35,8 +37,8 @@ const partsFormatter = new Intl.DateTimeFormat('en-US', {
   hourCycle: 'h23',
 });
 
-/** "יום שלישי, 20 באוקטובר" */
-export const formatDay = (isoUtc) => dayFormatter.format(new Date(isoUtc));
+/** "יום שלישי, 20 באוקטובר · ח׳ בחשוון תשפ״ז" - the Hebrew date is always shown next to the civil one */
+export const formatDay = (isoUtc) => `${dayFormatter.format(new Date(isoUtc))} · ${formatHebrewDate(isoUtc)}`;
 
 /** "09:00" */
 export const formatTime = (isoUtc) => timeFormatter.format(new Date(isoUtc));
@@ -76,6 +78,34 @@ export function israelTimeToUtcIso(dateKey, time = '00:00') {
   utc = wall - israelOffsetMinutes(utc) * 60000;
   return new Date(utc).toISOString();
 }
+
+/** Hebrew date of a form date ("2026-10-20") - shown under date pickers */
+export const hebrewDateOfDay = (dateKey) => formatHebrewDate(israelTimeToUtcIso(dateKey, '12:00'));
+
+// Shabbat window - mirrors Booking:ShabbatStartsOnFridayAt / ShabbatEndsOnSaturdayAt on the server
+export const SHABBAT = { startsOnFridayAt: '14:00', endsOnSaturdayAt: '21:00' };
+
+/**
+ * True if a slot on dateKey from `start` to `end` ("HH:mm", Israel time) touches Shabbat.
+ * "HH:mm" strings compare correctly as text ("13:30" < "14:00").
+ * The server enforces the same rule; this only warns the therapist before submitting.
+ */
+export function overlapsShabbat(dateKey, start, end) {
+  const weekday = weekdayOf(dateKey);
+  if (weekday === FRIDAY) return end > SHABBAT.startsOnFridayAt;
+  if (weekday === SATURDAY) return start < SHABBAT.endsOnSaturdayAt;
+  return false;
+}
+
+/** The next calendar day after `dateKey` that is not a Saturday - a sensible default for new slots. */
+export function nextWeekdayAfter(dateKey) {
+  const next = addDays(dateKey, 1);
+  return weekdayOf(next) === SATURDAY ? addDays(next, 1) : next;
+}
+
+const FRIDAY = 5;
+const SATURDAY = 6;
+const weekdayOf = (dateKey) => new Date(`${dateKey}T12:00:00Z`).getUTCDay();
 
 /** Groups items by their Israel calendar day, keeping the server's order. */
 export function groupByIsraelDay(items, getIsoUtc) {
