@@ -90,7 +90,10 @@ export default function TherapistSlotsPage() {
           <SlotsByDay
             slots={slots.data.items}
             renderSlot={(slot) => {
-              const status = SLOT_STATUS[slot.status];
+              // A slot whose time has passed is history: a neutral badge and no actions
+              const status = slot.isPast
+                ? { label: slot.status === 'Booked' ? 'התקיים' : 'עבר', tone: 'neutral' }
+                : SLOT_STATUS[slot.status];
               const busy = busySlotId === slot.id;
               return (
                 <SlotChip slot={slot}>
@@ -100,17 +103,17 @@ export default function TherapistSlotsPage() {
                       <UserRound size={14} aria-hidden /> {slot.bookedByClientName}
                     </span>
                   )}
-                  {slot.status === 'Open' && (
+                  {!slot.isPast && slot.status === 'Open' && (
                     <Button size="sm" variant="ghost" icon={Ban} loading={busy} onClick={() => setStatus(slot, 'Blocked')}>
                       חסימה
                     </Button>
                   )}
-                  {slot.status === 'Blocked' && (
+                  {!slot.isPast && slot.status === 'Blocked' && (
                     <Button size="sm" variant="ghost" icon={LockOpen} loading={busy} onClick={() => setStatus(slot, 'Open')}>
                       פתיחה
                     </Button>
                   )}
-                  {slot.status !== 'Booked' && (
+                  {!slot.isPast && slot.status !== 'Booked' && (
                     <Button size="sm" variant="ghost" icon={Trash2} disabled={busy} aria-label="מחיקת החלון"
                       onClick={() => setSlotToDelete(slot)} />
                   )}
