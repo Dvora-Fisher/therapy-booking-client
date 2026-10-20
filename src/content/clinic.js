@@ -7,7 +7,7 @@
 
 export const CLINIC = {
   name: 'מרחב שקט',
-  tagline: 'טיפול רגשי לילדים והדרכת הורים',
+  tagline: 'טיפול רגשי והנחיית הורים',
 };
 
 export const HEADER = {
