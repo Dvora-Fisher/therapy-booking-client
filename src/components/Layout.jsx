@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { CalendarDays, CalendarPlus, ListChecks, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import SiteFooter from './SiteFooter';
 import { ROLES } from '../utils/labels';
 import styles from './Layout.module.css';
 
@@ -48,6 +49,8 @@ export default function Layout() {
       <main className={styles.main}>
         <Outlet />
       </main>
+
+      <SiteFooter compact />
     </div>
   );
 }

@@ -63,4 +63,5 @@
   --focus-ring: 0 0 0 3px rgb(85 122 92 / 0.35);
   --transition: 160ms ease;
   --content-width: 1040px;
+  --header-height: 64px; /* the landing page's sticky header - anchors scroll to just below it */
 }

@@ -1,8 +1,15 @@
+/* clip: the full-width section bands must not cause horizontal scrolling */
+.wrapper {
+  position: relative;
+  overflow-x: clip;
+}
+
 .page {
-  min-height: 100dvh;
+  min-height: calc(100dvh - var(--header-height));
   display: grid;
   grid-template-columns: 1fr minmax(320px, 440px);
   align-items: center;
+  align-content: center;
   gap: var(--space-7);
   max-width: var(--content-width);
   margin: 0 auto;
@@ -15,10 +22,49 @@
   gap: var(--space-3);
 }
 
+/* Entrance: art, title, texts and the card rise in one after another (keyframes in global.css) */
+.intro > *,
+.card {
+  animation: rise 800ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.intro > :nth-child(2) { animation-delay: 100ms; }
+.intro > :nth-child(3) { animation-delay: 200ms; }
+.intro > :nth-child(4) { animation-delay: 280ms; }
+.intro > :nth-child(5) { animation-delay: 360ms; }
+.card { animation-delay: 240ms; }
+
 .intro p {
   font-size: var(--text-lg);
   color: var(--color-text-muted);
   max-width: 34ch;
+}
+
+.intro .subtitle {
+  color: var(--color-text);
+  font-weight: 500;
+  max-width: 38ch;
+}
+
+.points {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.points li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.points svg {
+  flex-shrink: 0;
+  color: var(--color-primary);
 }
 
 .art {
@@ -30,6 +76,33 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+}
+
+.scrollHint {
+  grid-column: 1 / -1;
+  justify-self: center;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  animation: rise 800ms ease 600ms backwards;
+}
+
+.scrollHint svg {
+  animation: bob 2.4s ease-in-out infinite;
+}
+
+.scrollHint:hover {
+  color: var(--color-primary-ink);
+}
+
+.content {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) 0;
 }
 
 .lead {
@@ -86,6 +159,14 @@
 
   .intro p {
     font-size: var(--text-md);
+  }
+
+  .points {
+    align-items: center;
+  }
+
+  .page {
+    padding-top: var(--space-5);
   }
 
   .art {
